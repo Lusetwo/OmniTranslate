@@ -1,0 +1,30 @@
+server:
+  port: 1009
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/omni_translate?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: qia_2020ismysweet
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  redis:
+    host: 6379
+    database: 0
+    timeout: 3000
+
+
+  jackson:
+    time-zone: Asia/ShangHai
+    date-format: yyyy-MM-dd HH:mm:ss
+
+
+  mybatis:
+    mapper-locations: classpath:mapper/*.xml
+    type-aliases-package: com.m7m.omnitranslate.entity
+    configuration:
+      map-underscore-to-camel-case: true
+
+  logging:
+    level:
+      com.m7m.auth.omnitranslate.mapper: debug
