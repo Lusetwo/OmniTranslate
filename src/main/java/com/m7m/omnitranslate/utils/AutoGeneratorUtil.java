@@ -22,6 +22,7 @@ public class AutoGeneratorUtil {
         Scanner scanner = new Scanner(System.in);
         String tables = scanner.nextLine();
 
+        //生成
         FastAutoGenerator.create(URL, USERNAME, PASSWORD)
                 // 1. 全局配置 (GlobalConfig)
                 .globalConfig(builder -> {
