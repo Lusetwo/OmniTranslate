@@ -1,7 +1,6 @@
 package com.m7m.omnitranslate.service.impl;
 
 import com.m7m.omnitranslate.entity.SysUser;
-import com.m7m.omnitranslate.mapper.SysUserMapper;
 import com.m7m.omnitranslate.service.SysUserService;
 import com.m7m.omnitranslate.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,6 @@
 package com.m7m.omnitranslate.config;
 
+import com.m7m.omnitranslate.security.filter.JwtAuthenticationFilter;
 import com.m7m.omnitranslate.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

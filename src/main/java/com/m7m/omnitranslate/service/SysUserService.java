@@ -1,6 +1,5 @@
 package com.m7m.omnitranslate.service;
 
-import com.m7m.omnitranslate.entity.SysUser;
 
 /**
  * <p>
