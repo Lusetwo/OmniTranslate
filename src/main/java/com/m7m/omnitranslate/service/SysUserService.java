@@ -1,7 +1,6 @@
 package com.m7m.omnitranslate.service;
 
 import com.m7m.omnitranslate.entity.SysUser;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -11,6 +10,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author Lusetwo
  * @since 2026-04-03
  */
-public interface SysUserService extends IService<SysUser> {
+public interface SysUserService{
 
+    String login(String username, String password);
 }
