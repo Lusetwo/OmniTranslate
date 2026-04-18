@@ -6,8 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -24,7 +22,6 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @TableName("sys_login_log")
-@ApiModel(value = "SysLoginLog对象", description = "")
 public class SysLoginLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,5 +51,8 @@ public class SysLoginLog implements Serializable {
     private LocalDateTime loginTime;
 
     @TableField("status")
-    private Byte status;
+    private Integer status;
+
+    @TableField("reason")
+    private String reason;
 }

@@ -28,7 +28,7 @@ public class AutoGeneratorUtil {
                 .globalConfig(builder -> {
                     builder.author(AUTHOR)                  // 设置作者
                             .enableSwagger()                // 开启 swagger 模式，生成 @Schema 等注解
-                            .fileOverride()                 // 覆盖已生成文件 (慎用，按需开启)
+                            //.fileOverride()                 // 覆盖已生成文件 (慎用，按需开启)
                             .disableOpenDir()               // 生成后不自动打开目录
                             .outputDir(System.getProperty("user.dir") + "/src/main/java"); // 指定 Java 输出目录
                 })

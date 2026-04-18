@@ -1,0 +1,108 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+}
+
+group = 'com.example'
+version = '1.0.0-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+// 定义统一的版本号变量 (对应 pom.xml 中的 <properties>)
+ext {
+    mybatisVersion = '2.2.2'
+    jjwtVersion = '0.11.5'
+    swaggerVersion = '1.7.0'
+}
+
+repositories {
+    mavenLocal()
+    // 配置阿里云镜像加速依赖下载
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    mavenCentral()
+}
+
+dependencies {
+    // web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // langchain4j
+    implementation 'dev.langchain4j:langchain4j:0.35.0'
+    implementation 'dev.langchain4j:langchain4j-open-ai:0.35.0'
+
+    // MyBatis (注意这里使用双引号来解析变量)
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
+
+    // MySQL
+    runtimeOnly 'mysql:mysql-connector-java:8.0.28'
+
+    // redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    // jwt
+    implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
+    implementation "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"
+    implementation "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
+
+    // 参数校验
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // aop
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    // JSON
+    implementation 'com.fasterxml.jackson.core:jackson-annotations'
+
+    // lombok (在 Gradle 中 Lombok 必须同时使用 compileOnly 和 annotationProcessor)
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // Swagger / OpenAPI
+    // 加入这行
+    implementation "org.springdoc:springdoc-openapi-ui:${swaggerVersion}"
+
+    // 分页
+    implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.7'
+
+    // Redis 分布式锁
+    implementation 'org.redisson:redisson-spring-boot-starter:3.18.0'
+
+    // 工具类
+    implementation 'cn.hutool:hutool-all:5.8.26'
+
+    // mybatis plus
+    implementation 'com.baomidou:mybatis-plus-core:3.5.5'
+
+    // 逆向工程 (注: 你的原 pom 声明了 3.5.5 和 3.5.3.1 两次，这里合并保留最新的 3.5.5)
+    implementation 'com.baomidou:mybatis-plus-generator:3.5.5'
+    implementation 'org.apache.velocity:velocity-engine-core:2.3'
+    implementation 'org.freemarker:freemarker:2.3.32'
+
+    //yauaa
+    implementation 'nl.basjes.parse.useragent:yauaa:7.24.0'
+
+    // 测试
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+    // 让 Gradle 打包 src/main/java 下的 xml 文件
+    sourceSets {
+        main {
+            java {
+                srcDirs = ['src/main/java']
+            }
+            resources {
+                srcDirs = ['src/main/java', 'src/main/resources']
+                includes = ['**/*.xml', '**/*.properties', '**/*.yml', '**/*.yaml']
+            }
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,7 +1,6 @@
 package com.m7m.omnitranslate.service;
 
 import com.m7m.omnitranslate.entity.SysOperationLog;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -11,6 +10,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author Lusetwo
  * @since 2026-04-03
  */
-public interface SysOperationLogService extends IService<SysOperationLog> {
+public interface SysOperationLogService {
 
 }

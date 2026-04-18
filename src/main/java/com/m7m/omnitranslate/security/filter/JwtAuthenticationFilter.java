@@ -1,10 +1,16 @@
 package com.m7m.omnitranslate.security.filter;
 
+import com.m7m.omnitranslate.entity.SysPermission;
+import com.m7m.omnitranslate.entity.SysUser;
+import com.m7m.omnitranslate.mapper.SysPermissionMapper;
+import com.m7m.omnitranslate.mapper.SysUserMapper;
 import com.m7m.omnitranslate.service.CustomUserDetailsService;
 import com.m7m.omnitranslate.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -15,6 +21,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -26,28 +34,40 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private CustomUserDetailsService userDetailsService;
     @Autowired
     private ResourceLoader resourceLoader;
+    @Autowired
+    private SysUserMapper sysUserMapper;
+    @Autowired
+    private SysPermissionMapper sysPermissionMapper;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        String header = httpServletRequest.getHeader("Authorization");
+    protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response,FilterChain filterChain) throws ServletException, IOException {
+
+        String header = request.getHeader("Authorization");
 
         if (header != null && header.startsWith("Bearer ")) {
             String token =  header.substring(7);
 
-            try{
+            try {
                 String userId = jwtUtil.getUserId(token);
 
-                String username = userId;
+                SysUser user = sysUserMapper.findByUserId(userId);
 
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                if (user == null) {
+                    List<SysPermission> permissions = sysPermissionMapper.findPermissionsByUserId(userId);
 
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                    List<GrantedAuthority> authorities = permissions.stream()
+                            .map(p-> new SimpleGrantedAuthority(p.getPermissionCode()))
+                            .collect(Collectors.toList());
+
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
+
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }catch (Exception e){
-                httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
         }
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
+        filterChain.doFilter(request, response);
     }
 }

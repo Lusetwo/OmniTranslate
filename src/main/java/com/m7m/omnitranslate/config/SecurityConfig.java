@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -33,7 +35,11 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/auth/**").permitAll()             // 放行所有 /auth/ 开头的接口（如注册、登录）
+                .antMatchers("/swagger-ui/**").permitAll()       // 放行 SpringDoc 接口文档 UI
+                .antMatchers("/v3/api-docs/**").permitAll()      // 放行 SpringDoc 数据接口
+                .antMatchers("/swagger-resources/**").permitAll()// 兼容老版本 Swagger
+                .antMatchers("/webjars/**").permitAll()          // 兼容老版本 Swagger
                 .anyRequest()
                 .authenticated();
         http.addFilterBefore(

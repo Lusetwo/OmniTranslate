@@ -16,4 +16,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
     SysUser selectByUsername(String username);
+
+    int insert(SysUser sysUser);
+
+    SysUser findByUserId(String userId);
 }

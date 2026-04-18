@@ -9,6 +9,10 @@ public enum ResultCodeEnum {
     ERROR(500, "系统内部异常"),
     PARAM_ERROR(400, "请求参数错误"),
     UNAUTHORIZED(401, "未授权或签名错误"),
+    USER_NOT_EXIST(2001,"用户不存在"),
+    PASSWORD_ERROR(2002,"用户名或密码错误"),
+    USER_ROLE_NOT_EXIST(2003,"默认用户不存在"),
+    USER_IS_EXIST(2004,"用户已存在"),
 
     // --- 业务专属状态 (悬浮翻译项目) ---
     IMAGE_EMPTY(4001, "接收到的图片流为空"),

@@ -1,7 +1,8 @@
 package com.m7m.omnitranslate.service;
 
 import com.m7m.omnitranslate.entity.SysLoginLog;
-import com.baomidou.mybatisplus.extension.service.IService;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -11,6 +12,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author Lusetwo
  * @since 2026-04-03
  */
-public interface SysLoginLogService extends IService<SysLoginLog> {
+public interface SysLoginLogService {
 
+    void recordSuccess(String userId, String username, String ip, String token, HttpServletRequest request);
+
+    void recordFail(String username, String reason, HttpServletRequest request);
 }

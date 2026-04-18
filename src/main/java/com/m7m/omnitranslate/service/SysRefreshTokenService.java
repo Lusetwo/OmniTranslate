@@ -1,7 +1,6 @@
 package com.m7m.omnitranslate.service;
 
 import com.m7m.omnitranslate.entity.SysRefreshToken;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -11,6 +10,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author Lusetwo
  * @since 2026-04-03
  */
-public interface SysRefreshTokenService extends IService<SysRefreshToken> {
+public interface SysRefreshTokenService {
 
 }

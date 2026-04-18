@@ -9,22 +9,22 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   redis:
-    host: 6379
+    host: 127.0.0.1
     database: 0
     timeout: 3000
+    port: 6379
 
 
   jackson:
-    time-zone: Asia/ShangHai
+    time-zone: Asia/Shanghai
     date-format: yyyy-MM-dd HH:mm:ss
 
+mybatis:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.m7m.omnitranslate.entity
+  configuration:
+    map-underscore-to-camel-case: true
 
-  mybatis:
-    mapper-locations: classpath:mapper/*.xml
-    type-aliases-package: com.m7m.omnitranslate.entity
-    configuration:
-      map-underscore-to-camel-case: true
-
-  logging:
-    level:
-      com.m7m.auth.omnitranslate.mapper: debug
+logging:
+  level:
+    com.m7m.omnitranslate.mapper: debug

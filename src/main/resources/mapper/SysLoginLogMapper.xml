@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.m7m.omnitranslate.mapper.SysLoginLogMapper">
+
+    <insert id="insert">
+        INSERT INTO sys_login_log(id,user_id,username,ip,device,browser,os,login_time,status,reason)
+        VALUES(#{id},#{userId},#{username},#{ip},#{device},#{browser},#{os},#{loginTime},#{status},#{reason})
+    </insert>
+</mapper>
